@@ -1,7 +1,10 @@
 export class User {
-  name: string;
-  nameColor: string;
-  imageUrl: string;
-  bedId: number;
-  bedHistory: number[];
+
+  constructor(
+    name: string,
+    nameColor: string,
+    bedId: number = null,
+    bedHistory: number[] = [], ) {
+  };
+
 }
