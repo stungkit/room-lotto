@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ResultsService } from '../results.service';
 import { UserService } from '../user.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-trial-form',
@@ -20,6 +21,8 @@ export class TrialFormComponent implements OnInit {
     this.trialForm = this.formBuilder.group({
       'days': ['', [Validators.required, this.validateDays]]
     });
+
+    this.resetBedTracker();
   }
 
   validateDays(formControl: FormControl) {
@@ -40,13 +43,39 @@ export class TrialFormComponent implements OnInit {
 
   onSubmit() {
     this.resultsService.clearDatabase();
+    this.resetBedTracker();
+
+    for (let i = 0; i < this.trialForm.value.days; i++) {
+      let users: User[] = [];
+      var alreadyPicked = [];
+      for (let user of this.userService.users) {
+        do {
+          var bedId = this.getRandomIntFromInterval(1, 8);
+        } while (this.bedTracker[user.name].includes(bedId) || alreadyPicked.includes(bedId));
+        this.bedTracker[user.name].push(bedId);
+        alreadyPicked.push(bedId);
+        user.bedId = bedId;
+        users.push(new User(user.name, user.bedId));
+      }
+      this.resultsService.addResult(users);
+    }
+
+    for (let users of this.resultsService.getDatabase()) {
+      users.sort(function(a, b) {
+        return a.bedId - b.bedId;
+      });
+    }
   }
 
   resetBedTracker() {
     this.bedTracker = {};
     for (let user of this.userService.users) {
-      
+      this.bedTracker[user.name] = [];
     }
+  }
+
+  getRandomIntFromInterval(min, max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
   }
 
 }
