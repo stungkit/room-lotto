@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ResultsService } from '../results.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-bed-chart',
@@ -6,14 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bed-chart.component.css']
 })
 export class BedChartComponent implements OnInit {
+  results: [User[]];
 
-  constructor() { }
+  constructor(private resultsService: ResultsService) { }
 
   ngOnInit() {
-  }
-
-  onSubmit() {
-
+    this.results = this.resultsService.getDatabase();
   }
 
 }

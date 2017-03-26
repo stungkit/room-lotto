@@ -1,13 +1,30 @@
-<h1 align="center">
-  Bed Charts
-</h1>
-<br>
-<div align="center">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="form-group" style="display:inline-block;">
-      <label>How Many Days?</label>
-      <input type="email" style="text-align: center;" class="form-control" placeholder="Enter in number of days">
+<div *ngFor="let users of results; let i = index">
+  <div align="center" class="container">
+    <h3><u>Day {{i+1}}</u></h3>
+    <div class="row">
+      <div class="col">
+        <h4 class="room-a">Room A:</h4>
+        <div class="row">
+          <div class="col">1. {{users[0].name}}</div>
+          <div class="col">2. {{users[1].name}}</div>
+        </div>
+        <div class="row">
+          <div class="col">3. {{users[2].name}}</div>
+          <div class="col">4. {{users[3].name}}</div>
+        </div>
+      </div>
+      <div class="col">
+        <h4 class="room-b">Room B:</h4>
+        <div class="row">
+          <div class="col">1. {{users[4].name}}</div>
+          <div class="col">2. {{users[5].name}}</div>
+        </div>
+        <div class="row">
+          <div class="col">3. {{users[6].name}}</div>
+          <div class="col">4. {{users[7].name}}</div>
+        </div>
+      </div>
     </div>
-  </form>
-  <button type="submit" class="btn btn-primary">Submit</button>
+    <hr>
+  </div>
 </div>
