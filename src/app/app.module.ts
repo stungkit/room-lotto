@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { BedChartComponent } from './user/bed-chart/bed-chart.component';
 import { TrialFormComponent } from './user/trial-form/trial-form.component';
 import { UserService } from './user/user.service';
-import { UserTrackerService } from './user/user-tracker.service';
 import { ResultsService } from './user/results.service';
 
 @NgModule({
@@ -22,7 +21,7 @@ import { ResultsService } from './user/results.service';
     HttpModule,
     ReactiveFormsModule
   ],
-  providers: [UserService, UserTrackerService, ResultsService],
+  providers: [UserService, ResultsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

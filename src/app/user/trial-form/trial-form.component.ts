@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ResultsService } from '../results.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-trial-form',
@@ -9,9 +10,11 @@ import { ResultsService } from '../results.service';
 })
 export class TrialFormComponent implements OnInit {
   trialForm: FormGroup;
+  bedTracker = {};
 
   constructor(private formBuilder: FormBuilder,
-              private resultsService: ResultsService) { }
+              private resultsService: ResultsService,
+              private userService: UserService) { }
 
   ngOnInit() {
     this.trialForm = this.formBuilder.group({
@@ -37,6 +40,13 @@ export class TrialFormComponent implements OnInit {
 
   onSubmit() {
     this.resultsService.clearDatabase();
+  }
+
+  resetBedTracker() {
+    this.bedTracker = {};
+    for (let user of this.userService.users) {
+      
+    }
   }
 
 }
